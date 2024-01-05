@@ -1,6 +1,6 @@
 #! /bin/bash
 
-apt-get install gnome-core
+apt-get install gnome-core -y
 
 # Replace the default .bashrc 
 mv ~/.bashrc default.bashrc
@@ -18,11 +18,8 @@ wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | apt-key add -
 add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
 apt-get update && apt-get install code -y
 
-# Install PowerShell
-# sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-debian-bullseye-prod bullseye main" > /etc/apt/sources.list.d/microsoft.list' 
-add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-debian-bullseye-prod bullseye main"
-apt-get update && apt-get install powershell -y
-
+# Install LibreOffice
+apt install libreoffice -y
 
 # Remove tmp folder
 rm -r $TEMP_DIR
