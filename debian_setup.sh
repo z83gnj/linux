@@ -33,5 +33,5 @@ apt-get install terminator -y
 rm -r $TEMP_DIR
 
 # Replace the default .bashrc 
-su $mv ~/.bashrc default.bashrc -f
-cp .bashrc ~/ -f
+su $USRNAME mv $HOMEDIR/.bashrc default.bashrc -f
+su $USRNAME cp .bashrc $HOMEDIR/ -f
