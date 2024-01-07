@@ -1,28 +1,22 @@
 #! /bin/bash
-# Define the username for who will install the . files
-USRNAME="matakos"
-HOMEDIR=$(eval echo ~$USRNAME)
+
+# Purge someeval bloatware
+xargs -a bloatware.txt sudo apt autopurge -y
+
 
 # Create a tmp folder
 TEMP_DIR=$(mktemp -d)
 
-apt-get install gnome-core -y
-apt-get gpg -y
+sudo apt-get gpg -y
 
 # Install Google Chrome
-wget -qnv --show-progress -O ${TEMP_DIR}/google-chrome-stable_current_amd64.deb  https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb 
-apt-get install ${TEMP_DIR}/google-chrome-stable_current_amd64.deb -y
+. "$PWD/install_chrome.sh"
 
 # Install Visual Studio Code
-wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
-sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-rm -f packages.microsoft.gpg
-apt-get update && apt-get install code -y
+. "$PWD/install_VScode.sh"
 
-# Install LibreOffice
-apt-get install libreoffice -y
-apt-get install terminator -y
+# Install additional sofwtare
+xargs -a add_app.txt sudo apt-get install -y
 
 # grub background titus
 #git clone https://github.com/ChrisTitusTech/Top-5-Bootloader-Themes
@@ -32,6 +26,7 @@ apt-get install terminator -y
 # Remove tmp folder
 rm -r $TEMP_DIR
 
-# Replace the default .bashrc 
-su $USRNAME -c 'mv $HOMEDIR/.bashrc default.bashrc -f'
-su $USRNAME -c 'cp .bashrc $HOMEDIR/ -f'
+# Replace the default .bashrc .bash_profile .bash_login .profile
+mv $HOMEDIR/.bashrc default.bashrc -f
+cp .bashrc $HOMEDIR/ -f
+

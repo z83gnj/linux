@@ -57,4 +57,15 @@ fi
 alias ll='ls -lhA'
 
 # Additional variable
+# INPATH=$(eval echo $PATH | tr ':' '\n' | grep $HOME)
+# if [ "$INPATH" = "$HOME/bin" ]
 export PATH="$HOME/bin:$PATH"
+
+# add to PATH the privat bin if exist
+if [ -d "$HOME/bin" ]; then
+    PATH="$HOME/bin":$PATH"
+fi
+
+fi [ -d "$HOME/.local/bin" ]; then
+    PATH="$HOME/.local/bin":$PATH"
+fi

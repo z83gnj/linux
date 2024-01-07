@@ -1,0 +1,11 @@
+gnome-games
+gnome-contacts
+gnome-weather
+simple-scan
+cheese-common
+gnome-maps
+gnome-music
+rhythmbox
+shotwell-common
+gnome-sound-recorder
+totem-common
