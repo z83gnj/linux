@@ -9,3 +9,4 @@ rhythmbox
 shotwell-common
 gnome-sound-recorder
 totem-common
+transmission-commmon
