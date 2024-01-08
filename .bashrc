@@ -4,6 +4,16 @@ case $- in
       *) return;;
 esac
 
+# Enable bash programmable completion features in interactive shells
+if [ -f /usr/share/bash-completion/bash_completion ]; then
+	. /usr/share/bash-completion/bash_completion
+elif [ -f /etc/bash_completion ]; then
+	. /etc/bash_completion
+fi
+
+# Disable the bell
+if [[ $iatest -gt 0 ]]; then bind "set bell-style visible"; fi
+
 # Don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth
 # Append to the history file, don't overwrite it
@@ -15,6 +25,11 @@ HISTFILESIZE=2000
 # Check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
 
 # Set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
@@ -40,7 +55,6 @@ esac
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
@@ -54,12 +68,14 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-alias ll='ls -lhA'
+# Variable definitions
+
+# Function definitions
 
 # Additional variable
 # INPATH=$(eval echo $PATH | tr ':' '\n' | grep $HOME)
 # if [ "$INPATH" = "$HOME/bin" ]
-export PATH="$HOME/bin:$PATH"
+PATH="$HOME/bin:$PATH"
 
 # add to PATH the privat bin if exist
 if [ -d "$HOME/bin" ]; then
