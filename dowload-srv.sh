@@ -7,7 +7,7 @@ sudo smbpasswd -a akos # set password for smb share
 
 sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.bak
 
-cat << EOF >> /etc/samba/smb.conf
+sudo cat << EOF >> /etc/samba/smb.conf
 [global]
     workgroup = WORKGROUP
     log file = /var/log/samba/log.%m
