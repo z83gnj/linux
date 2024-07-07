@@ -3,6 +3,9 @@ sudo apt insatll samba -y
 sudo useradd -M -N akos # user for smb share
 sudo groupadd smb # create group for smb share
 sudo usermod -g smb akos  #change user primary group
+# Permission for the smb share
+# sudo chown -R akos:smb /path/to/folder
+
 sudo smbpasswd -a akos # set password for smb share
 
 sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.bak
@@ -23,6 +26,8 @@ sudo cat << EOF >> /etc/samba/smb.conf
     path = /mnt/torrent/
     valid users = akos
     read only = no
+    create mask = 0777
+    directory mask = 0777
 
 EOF
 
