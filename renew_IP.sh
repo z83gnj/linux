@@ -1,12 +1,22 @@
-#!/bin/bash
 
-# Replace eth0 with your network interface
-INTERFACE="eth0"
+renew_ip() {
+    if [ "$#" -eq 0 ]; then
+        echo "Usage: renew_ip <interface1> [<interface2> ...]"
+        return 1
+    fi
 
-# Release the current IP address
-sudo dhclient -r $INTERFACE
+    for interface in "$@"; do
+        echo "Renewing IP for interface: $interface"
+        sudo dhclient -r "$interface" && sudo dhclient "$interface"
+    done
+}
 
-# Renew the IP address
-sudo dhclient $INTERFACE
+renew_all_interfaces() {
+    # Get the list of all network interfaces that are up
+    interfaces=$(ip -o link show | awk -F': ' '{print $2}' | grep -v 'lo')
 
-echo "IP address renewed for $INTERFACE"
+    for interface in $interfaces; do
+        echo "Renewing IP for interface: $interface"
+        sudo dhclient -r "$interface" && sudo dhclient "$interface"
+    done
+}
