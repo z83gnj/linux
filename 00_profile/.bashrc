@@ -11,7 +11,6 @@ LAST_UPDATE_FILE="$HOME/.last_update_check"
 # Get today's date
 TODAY=$(date +%Y-%m-%d)
 
-
 iatest=$(expr index "$-" i)
 
 # Check fastfetch is installed, if so run it
@@ -144,7 +143,7 @@ check_updates() {
 
 # Add to PATH the privat bin if exist
 if [ -d "$HOME/bin" ]; then
-    PATH="$HOME/bin":$PATH"
+    PATH="$HOME/bin":$PATH
 fi
 
 # Check if the last update check date file exists
